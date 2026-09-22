@@ -1,4 +1,4 @@
-import { useMemo, useState, useEffect } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import {
   caseStudies,
   metrics,
@@ -14,7 +14,6 @@ import {
 
 const EMAIL = 'christian.dave.tagadiad01@gmail.com'
 const LINKEDIN = 'https://www.linkedin.com/in/christian-dave-tagadiad/'
-
 
 function ThemeToggle({ theme, onToggle }) {
   const isDark = theme === 'dark'
@@ -131,7 +130,7 @@ function Hero() {
         />
         <img
           className="hero-media-img hero-media-img--hover"
-          src="/images/hero-profile-night.png"
+          src="/images/hero-profile-night.jpeg"
           alt="Christian Dave Tagadiad street portrait at night"
         />
         <div className="availability-card">
@@ -562,9 +561,23 @@ function Footer() {
 }
 
 export default function App() {
+  const [theme, setTheme] = useState(() => {
+    if (typeof window === 'undefined') return 'dark'
+    const stored = window.localStorage.getItem('theme')
+    if (stored === 'light' || stored === 'dark') return stored
+    return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'
+  })
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme)
+    window.localStorage.setItem('theme', theme)
+  }, [theme])
+
+  const toggleTheme = () => setTheme((current) => (current === 'dark' ? 'light' : 'dark'))
+
   return (
     <>
-      <Header />
+      <Header theme={theme} onToggleTheme={toggleTheme} />
       <main>
         <Hero />
         <About />
