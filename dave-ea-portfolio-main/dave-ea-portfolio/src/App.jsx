@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useMemo, useState, useEffect } from 'react'
 import {
   caseStudies,
   metrics,
@@ -16,7 +16,32 @@ const EMAIL = 'christian.dave.tagadiad01@gmail.com'
 const LINKEDIN = 'https://www.linkedin.com/in/christian-dave-tagadiad/'
 
 
-function Header() {
+function ThemeToggle({ theme, onToggle }) {
+  const isDark = theme === 'dark'
+
+  return (
+    <button
+      className="theme-toggle"
+      type="button"
+      onClick={onToggle}
+      aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+      title={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+    >
+      {isDark ? (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+          <circle cx="12" cy="12" r="4.5" />
+          <path d="M12 2.5v2.4M12 19.1v2.4M4.2 4.2l1.7 1.7M18.1 18.1l1.7 1.7M2.5 12h2.4M19.1 12h2.4M4.2 19.8l1.7-1.7M18.1 5.9l1.7-1.7" />
+        </svg>
+      ) : (
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M20.6 15.3a8.5 8.5 0 0 1-11-11.2 1 1 0 0 0-1.28-1.3A10.5 10.5 0 1 0 22 16.6a1 1 0 0 0-1.4-1.3Z" />
+        </svg>
+      )}
+    </button>
+  )
+}
+
+function Header({ theme, onToggleTheme }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   const closeMenu = () => setIsMenuOpen(false)
@@ -31,25 +56,29 @@ function Header() {
         </span>
       </a>
 
-      <button
-        className="menu-toggle"
-        type="button"
-        aria-expanded={isMenuOpen}
-        aria-controls="site-navigation"
-        onClick={() => setIsMenuOpen((current) => !current)}
-      >
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
+      <div className="nav-group">
+        <nav id="site-navigation" className={isMenuOpen ? 'nav-links nav-links--open' : 'nav-links'}>
+          {navItems.map((item) => (
+            <a key={item.href} href={item.href} onClick={closeMenu}>
+              {item.label}
+            </a>
+          ))}
+        </nav>
 
-      <nav id="site-navigation" className={isMenuOpen ? 'nav-links nav-links--open' : 'nav-links'}>
-        {navItems.map((item) => (
-          <a key={item.href} href={item.href} onClick={closeMenu}>
-            {item.label}
-          </a>
-        ))}
-      </nav>
+        <ThemeToggle theme={theme} onToggle={onToggleTheme} />
+
+        <button
+          className="menu-toggle"
+          type="button"
+          aria-expanded={isMenuOpen}
+          aria-controls="site-navigation"
+          onClick={() => setIsMenuOpen((current) => !current)}
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
     </header>
   )
 }
@@ -404,8 +433,6 @@ function WhyMe() {
     </section>
   )
 }
-
-
 
 function Contact() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' })
