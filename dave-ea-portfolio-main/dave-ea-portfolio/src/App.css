@@ -509,8 +509,9 @@ textarea {
 
 .tool-card {
   display: grid;
-  align-content: space-between;
-  min-height: 174px;
+  justify-items: center;
+  align-content: start;
+  gap: 16px;
   border: 1px solid var(--line);
   border-radius: var(--radius-lg);
   background: rgba(255, 255, 255, 0.035);
@@ -519,8 +520,9 @@ textarea {
 }
 
 .tool-card img {
-  width: 100%;
+  width: 92px;
   height: 92px;
+  aspect-ratio: 1 / 1;
   border-radius: 18px;
   object-fit: contain;
   background: rgba(255, 255, 255, 0.92);
