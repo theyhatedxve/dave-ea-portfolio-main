@@ -94,7 +94,16 @@ function Hero() {
       </div>
 
       <div className="hero-media">
-        <img src="/images/hero-profile.jpeg" alt="Christian Dave Tagadiad portfolio portrait" />
+        <img
+          className="hero-media-img hero-media-img--default"
+          src="/images/hero-profile.jpeg"
+          alt="Christian Dave Tagadiad portfolio portrait"
+        />
+        <img
+          className="hero-media-img hero-media-img--hover"
+          src="/images/hero-profile-night.png"
+          alt="Christian Dave Tagadiad street portrait at night"
+        />
         <div className="availability-card">
           <span>Available</span>
           <strong>20 to 30 hrs / week</strong>

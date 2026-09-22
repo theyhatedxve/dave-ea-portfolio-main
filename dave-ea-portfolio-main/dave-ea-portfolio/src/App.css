@@ -283,8 +283,7 @@ textarea {
 }
 
 .hero-media {
-  position: relative;
-  isolation: isolate;
+  cursor: pointer;
 }
 
 .hero-media::before {
@@ -307,8 +306,29 @@ textarea {
   box-shadow: var(--shadow);
 }
 
-.hero-media img {
+.hero-media-img {
   aspect-ratio: 4 / 5;
+  transition: opacity 200ms ease;
+}
+
+.hero-media-img--default {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-media-img--hover {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  opacity: 0;
+}
+
+.hero-media:hover .hero-media-img--default {
+  opacity: 0;
+}
+
+.hero-media:hover .hero-media-img--hover {
+  opacity: 1;
 }
 
 .availability-card {
@@ -535,7 +555,7 @@ textarea {
   font-weight: 800;
   margin-top: 16px;
   text-align: center;
-}
+} 
 
 .process-section {
   display: grid;
