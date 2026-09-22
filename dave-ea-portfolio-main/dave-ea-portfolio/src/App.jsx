@@ -130,7 +130,7 @@ function Hero() {
         />
         <img
           className="hero-media-img hero-media-img--hover"
-          src="/images/hero-profile-night.jpeg"
+          src="/images/hero-profile-night.png"
           alt="Christian Dave Tagadiad street portrait at night"
         />
         <div className="availability-card">
