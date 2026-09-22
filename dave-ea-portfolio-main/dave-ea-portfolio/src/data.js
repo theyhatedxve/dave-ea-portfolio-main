@@ -91,6 +91,7 @@ export const caseStudies = [
     client: 'Mango Studio',
     duration: '3 months',
     image: '/images/editorial-profile.jpeg',
+    gallery: ['/images/editorial-profile.jpeg'],
     problem:
       'The business had inconsistent posting and delayed replies to clients. Engagement was low and inquiries were missed.',
     solution: [
@@ -111,6 +112,7 @@ export const caseStudies = [
     client: 'Creative Team',
     duration: 'Project based',
     image: '/images/drive-folders.jpeg',
+    gallery: ['/images/drive-folders.jpeg', '/images/raw-footage.jpeg', '/images/workflow-tracker.jpeg'],
     problem:
       'The team struggled with scattered files and delayed video production. Footage was hard to locate, and deadlines were often missed due to poor coordination.',
     solution: [
