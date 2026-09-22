@@ -130,7 +130,7 @@ function Hero() {
         />
         <img
           className="hero-media-img hero-media-img--hover"
-          src="/images/hero-profile-night.png"
+          src="/images/hero-profile-night.jpeg"
           alt="Christian Dave Tagadiad street portrait at night"
         />
         <div className="availability-card">
@@ -264,6 +264,72 @@ function Process() {
   )
 }
 
+function CaseMediaCarousel({ caseId, images }) {
+  const [activeIndex, setActiveIndex] = useState(0)
+
+  useEffect(() => {
+    setActiveIndex(0)
+  }, [caseId])
+
+  useEffect(() => {
+    if (images.length < 2) return undefined
+    const timer = setInterval(() => {
+      setActiveIndex((current) => (current + 1) % images.length)
+    }, 4000)
+    return () => clearInterval(timer)
+  }, [images, caseId])
+
+  const goTo = (index) => setActiveIndex((index + images.length) % images.length)
+
+  return (
+    <div className="case-media">
+      <div className="case-carousel">
+        {images.map((src, index) => (
+          <img
+            key={src}
+            src={src}
+            alt={`Case study preview ${index + 1}`}
+            className={index === activeIndex ? 'case-carousel-img case-carousel-img--active' : 'case-carousel-img'}
+          />
+        ))}
+      </div>
+
+      {images.length > 1 && (
+        <>
+          <button
+            type="button"
+            className="case-carousel-arrow case-carousel-arrow--prev"
+            onClick={() => goTo(activeIndex - 1)}
+            aria-label="Previous image"
+          >
+            ‹
+          </button>
+          <button
+            type="button"
+            className="case-carousel-arrow case-carousel-arrow--next"
+            onClick={() => goTo(activeIndex + 1)}
+            aria-label="Next image"
+          >
+            ›
+          </button>
+
+          <div className="case-carousel-dots" role="tablist" aria-label="Case study images">
+            {images.map((src, index) => (
+              <button
+                key={src}
+                type="button"
+                className={index === activeIndex ? 'case-carousel-dot case-carousel-dot--active' : 'case-carousel-dot'}
+                onClick={() => goTo(index)}
+                aria-label={`Show image ${index + 1}`}
+              />
+            ))}
+          </div>
+        </>
+      )}
+    </div>
+  )
+}
+
 function CaseStudies() {
   const [activeCaseId, setActiveCaseId] = useState(caseStudies[0].id)
   const activeCase = useMemo(
@@ -293,15 +359,7 @@ function CaseStudies() {
       </div>
 
       <article className="case-card">
-        <div className="case-media">
-          <img src={activeCase.image} alt={`${activeCase.title} preview`} />
-          {activeCase.id === 'workflow' && (
-            <div className="case-previews" aria-hidden="true">
-              <img src="/images/raw-footage.jpeg" alt="" />
-              <img src="/images/workflow-tracker.jpeg" alt="" />
-            </div>
-          )}
-        </div>
+        <CaseMediaCarousel caseId={activeCase.id} images={activeCase.gallery ?? [activeCase.image]} />
 
         <div className="case-content">
           <p className="eyebrow">{activeCase.label}</p>
