@@ -15,6 +15,7 @@ import {
 const EMAIL = 'christian.dave.tagadiad01@gmail.com'
 const LINKEDIN = 'https://www.linkedin.com/in/christian-dave-tagadiad/'
 
+
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
@@ -403,6 +404,8 @@ function WhyMe() {
     </section>
   )
 }
+
+
 
 function Contact() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' })
