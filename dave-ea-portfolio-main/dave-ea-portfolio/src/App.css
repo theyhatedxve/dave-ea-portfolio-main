@@ -353,8 +353,7 @@ textarea {
 
 .hero-media img,
 .about-card img,
-.process-copy img,
-.case-media > img {
+.process-copy img {
   width: 100%;
   border: 1px solid rgba(var(--overlay-rgb), 0.08);
   border-radius: var(--radius-xl);
@@ -680,22 +679,86 @@ textarea {
   position: relative;
 }
 
-.case-media > img {
+.case-carousel {
+  position: relative;
   aspect-ratio: 4 / 3;
-}
-
-.case-previews {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin-top: 10px;
-}
-
-.case-previews img {
+  border-radius: var(--radius-xl);
+  overflow: hidden;
   border: 1px solid var(--line);
-  border-radius: 16px;
-  aspect-ratio: 16 / 9;
+  box-shadow: var(--shadow);
+}
+
+.case-carousel-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
+  opacity: 0;
+  transition: opacity 480ms ease;
+}
+
+.case-carousel-img--active {
+  opacity: 1;
+}
+
+.case-carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(var(--overlay-rgb), 0.16);
+  border-radius: 50%;
+  background: var(--overlay-panel);
+  color: var(--cream);
+  font-size: 1.3rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: 160ms ease;
+  z-index: 2;
+}
+
+.case-carousel-arrow:hover {
+  border-color: rgba(215, 177, 116, 0.45);
+  color: var(--gold-strong);
+}
+
+.case-carousel-arrow--prev {
+  left: 14px;
+}
+
+.case-carousel-arrow--next {
+  right: 14px;
+}
+
+.case-carousel-dots {
+  position: absolute;
+  left: 50%;
+  bottom: 14px;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 2;
+}
+
+.case-carousel-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(var(--overlay-rgb), 0.32);
+  cursor: pointer;
+  padding: 0;
+  transition: 160ms ease;
+}
+
+.case-carousel-dot--active {
+  width: 22px;
+  border-radius: 4px;
+  background: var(--gold-strong);
 }
 
 .case-content h3 {
@@ -1038,10 +1101,6 @@ textarea {
   .availability-card {
     position: static;
     margin-top: 14px;
-  }
-
-  .case-previews {
-    grid-template-columns: 1fr;
   }
 
   .site-footer {
